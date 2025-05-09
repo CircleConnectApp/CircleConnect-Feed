@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  feed-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4004:4004"
+    environment:
+      - PORT=4004
+      - MONGO_URI=mongodb://mongo:27017
+      - POSTGRES_URI=postgres://postgres:postgres@postgres:5432/circle_connect?sslmode=disable
+      - MONGO_DB_NAME=circle_connect_feeds
+      - ENVIRONMENT=development
+      - JWT_SECRET=your-secret-key
+      - USER_SERVICE_URL=http://localhost:4001/api
+      - POST_SERVICE_URL=http://localhost:4000/api
+      - COMMUNITY_SERVICE_URL=http://localhost:4002/api
+    depends_on:
+      - mongo
+      - postgres
+    restart: always
+    networks:
+      - circle-connect-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - circle-connect-network
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=circle_connect
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - circle-connect-network
+
+volumes:
+  mongo-data:
+  postgres-data:
+
+networks:
+  circle-connect-network:
+    driver: bridge 
