@@ -33,11 +33,9 @@ func SetupRoutes(r *gin.Engine, db *mongo.Database, pgDB *sql.DB) {
 	api := r.Group("/api")
 	log.Println("Registering /api routes...")
 
-	// Authenticated routes
 	auth := api.Group("/")
 	auth.Use(middleware.AuthMiddleware())
 	{
-		// Feed endpoints
 		auth.GET("/feed", func(c *gin.Context) {
 			log.Println("GET /api/feed route hit")
 			feedController.GetFeed(c)
@@ -48,7 +46,6 @@ func SetupRoutes(r *gin.Engine, db *mongo.Database, pgDB *sql.DB) {
 			feedController.GetRecommendedPosts(c)
 		})
 
-		// User feed preferences endpoints
 		auth.GET("/feed/preferences", func(c *gin.Context) {
 			log.Println("GET /api/feed/preferences route hit")
 			feedController.GetUserPreferences(c)

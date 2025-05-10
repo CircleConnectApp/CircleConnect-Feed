@@ -19,7 +19,6 @@ func main() {
 
 	cfg := config.LoadConfig()
 
-	// Connect to MongoDB
 	mongoClient, err := database.ConnectMongoDB(cfg.MongoURI)
 	if err != nil {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)
@@ -27,7 +26,6 @@ func main() {
 	defer mongoClient.Disconnect(context.Background())
 	log.Println("Connected to MongoDB")
 
-	// Connect to PostgreSQL
 	pgDB, err := database.ConnectPostgres(cfg.PostgresURI)
 	if err != nil {
 		log.Fatalf("Failed to connect to PostgreSQL: %v", err)
@@ -45,7 +43,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "4004" // Different port for feed service
+		port = "4004"
 	}
 
 	log.Printf("Feed service running on port %s", port)

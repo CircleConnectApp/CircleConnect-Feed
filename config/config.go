@@ -18,13 +18,13 @@ type Config struct {
 func LoadConfig() Config {
 	return Config{
 		MongoURI:            getEnvOrDefault("MONGO_URI", "mongodb://localhost:27017"),
-		PostgresURI:         getEnvOrDefault("POSTGRES_URI", "postgres://postgres:postgres@localhost:5432/circle_connect?sslmode=disable"),
-		MongoDBName:         getEnvOrDefault("MONGO_DB_NAME", "circle_connect_feeds"),
+		PostgresURI:         getEnvOrDefault("POSTGRES_URI", "postgresql://postgres:yehia@localhost:5432/postgres?sslmode=disable"),
+		MongoDBName:         getEnvOrDefault("MONGO_DB_NAME", "circle_connect"),
 		Environment:         getEnvOrDefault("ENVIRONMENT", "development"),
-		JWTSecret:           getEnvOrDefault("JWT_SECRET", "your-secret-key"),
-		UserServiceURL:      getEnvOrDefault("USER_SERVICE_URL", "http://localhost:4001/api"),
+		JWTSecret:           getEnvOrDefault("JWT_SECRET", "a5898119500ed0f2fcb2f63a40f03ccbc35ce27ba86b862f427aa9c842ed44cb"),
+		UserServiceURL:      getEnvOrDefault("USER_SERVICE_URL", "http://localhost:8081"),
 		PostServiceURL:      getEnvOrDefault("POST_SERVICE_URL", "http://localhost:4000/api"),
-		CommunityServiceURL: getEnvOrDefault("COMMUNITY_SERVICE_URL", "http://localhost:4002/api"),
+		CommunityServiceURL: getEnvOrDefault("COMMUNITY_SERVICE_URL", "http://localhost:3000"),
 	}
 }
 
