@@ -45,7 +45,6 @@ func main() {
 	if port == "" {
 		port = "4004"
 	}
-
 	log.Printf("Feed service running on port %s", port)
 	if err := router.Run(":" + port); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
